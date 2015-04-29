@@ -6,25 +6,37 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.JButton;
+
 import java.awt.Dimension;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JPopupMenu;
+
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Toolkit;
+
 import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MenjacnicaGUI extends JFrame {
 
@@ -48,7 +60,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmDodajKurs;
 	private JMenuItem mntmObriiKurs;
 	private JMenuItem mntmIzvriZamenu;
-
+	
+	private void ugasiAplikaciju(){
+		int sifra=JOptionPane.showConfirmDialog(contentPane, "Da li želite da izaðete iz programa?", "Izlaz", JOptionPane.YES_NO_CANCEL_OPTION);
+		if(sifra==JOptionPane.YES_OPTION) System.exit(0);
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -69,9 +85,15 @@ public class MenjacnicaGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MenjacnicaGUI() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				ugasiAplikaciju();
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenjacnicaGUI.class.getResource("/icons/074966-ultra-glossy-silver-button-icon-alphanumeric-dollar-sign.png")));
 		setTitle("Menjacnica");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 493, 345);
 		setJMenuBar(getMenuBar_1());
 		contentPane = new JPanel();
@@ -187,6 +209,16 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmOpen() {
 		if (mntmOpen == null) {
 			mntmOpen = new JMenuItem("Open");
+			mntmOpen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JFileChooser fc=new JFileChooser();
+					int opcija=fc.showOpenDialog(contentPane);
+					if (opcija==JFileChooser.APPROVE_OPTION) {
+						File f=fc.getSelectedFile();
+						textArea.append("Uèitan fajl: "+f.getAbsolutePath()+"\n");
+					}
+				}
+			});
 			mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 			mntmOpen.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/icons/Open Icon.jpg")));
 		}
@@ -195,6 +227,16 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmSave() {
 		if (mntmSave == null) {
 			mntmSave = new JMenuItem("Save");
+			mntmSave.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JFileChooser fc=new JFileChooser();
+					int opcija=fc.showSaveDialog(contentPane);
+					if (opcija==JFileChooser.APPROVE_OPTION) {
+						File f=fc.getSelectedFile();
+						textArea.append("Saèuvan fajl: "+f.getAbsolutePath()+"\n");
+					}
+				}
+			});
 			mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 			mntmSave.setIcon(new ImageIcon(MenjacnicaGUI.class.getResource("/icons/Actions document save Icon.jpg")));
 		}
@@ -203,6 +245,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmExit() {
 		if (mntmExit == null) {
 			mntmExit = new JMenuItem("Exit");
+			mntmExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					ugasiAplikaciju();
+				}
+			});
 			mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
 		}
 		return mntmExit;
@@ -210,6 +257,11 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmAbout() {
 		if (mntmAbout == null) {
 			mntmAbout = new JMenuItem("About");
+			mntmAbout.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					JOptionPane.showMessageDialog(contentPane, "Autor: Jelena Maliæ", "O programu", JOptionPane.INFORMATION_MESSAGE);
+				}
+			});
 		}
 		return mntmAbout;
 	}
