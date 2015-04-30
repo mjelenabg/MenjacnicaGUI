@@ -141,14 +141,14 @@ public class ObrisiKursGUI extends JFrame {
 	private JLabel getLblSrednjiKurs() {
 		if (lblSrednjiKurs == null) {
 			lblSrednjiKurs = new JLabel("Srednji kurs");
-			lblSrednjiKurs.setBounds(10, 121, 68, 14);
+			lblSrednjiKurs.setBounds(10, 121, 92, 14);
 		}
 		return lblSrednjiKurs;
 	}
 	private JLabel getLblSkraeniNaziv() {
 		if (lblSkraeniNaziv == null) {
 			lblSkraeniNaziv = new JLabel("Skra\u0107eni naziv");
-			lblSkraeniNaziv.setBounds(237, 121, 68, 14);
+			lblSkraeniNaziv.setBounds(237, 121, 83, 14);
 		}
 		return lblSkraeniNaziv;
 	}
