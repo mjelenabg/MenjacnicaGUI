@@ -2,6 +2,7 @@ package menjacnica.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.TextArea;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,7 +43,7 @@ public class MenjacnicaGUI extends JFrame {
 
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
-	private JTextArea textArea;
+	private static JTextArea textArea;
 	private JPanel panel;
 	private JScrollPane scrollPane_1;
 	private JTable table;
@@ -64,6 +65,9 @@ public class MenjacnicaGUI extends JFrame {
 	private void ugasiAplikaciju(){
 		int sifra=JOptionPane.showConfirmDialog(contentPane, "Da li želite da izaðete iz programa?", "Izlaz", JOptionPane.YES_NO_CANCEL_OPTION);
 		if(sifra==JOptionPane.YES_OPTION) System.exit(0);
+	}
+	public static void dodajKurs(String s){
+		textArea.append(s+"\n");
 	}
 	/**
 	 * Launch the application.
@@ -164,6 +168,12 @@ public class MenjacnicaGUI extends JFrame {
 	private JButton getBtnDodajKurs() {
 		if (btnDodajKurs == null) {
 			btnDodajKurs = new JButton("Dodaj kurs");
+			btnDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					DodajKursGUI dodajKurs=new DodajKursGUI();
+					dodajKurs.setVisible(true);
+				}
+			});
 			btnDodajKurs.setPreferredSize(new Dimension(120, 25));
 		}
 		return btnDodajKurs;
@@ -294,6 +304,12 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem getMntmDodajKurs() {
 		if (mntmDodajKurs == null) {
 			mntmDodajKurs = new JMenuItem("Dodaj kurs");
+			mntmDodajKurs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					DodajKursGUI dodajKurs=new DodajKursGUI();
+					dodajKurs.setVisible(true);
+				}
+			});
 		}
 		return mntmDodajKurs;
 	}
